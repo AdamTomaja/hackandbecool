@@ -5,7 +5,7 @@ export async function getProducts() {
 
         await getAPIClient().request(
             "GET",
-            "items",
+            "items/IN_STOCK",
             {},
             {}
          ).then((response) => {
