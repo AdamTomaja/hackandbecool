@@ -32,13 +32,15 @@ public class ItemsService {
         .build();
   }
 
-    public DbItem deleteItem(String id) {
-      return itemRepository.findById(id).map(this::markAsDeleted).map(itemRepository::save).orElseThrow();
-    }
+  public DbItem deleteItem(String id) {
+    return itemRepository
+        .findById(id)
+        .map(this::markAsDeleted)
+        .map(itemRepository::save)
+        .orElseThrow();
+  }
 
   private DbItem markAsDeleted(DbItem dbItem) {
-    return dbItem.toBuilder()
-            .status(ItemStatus.DELETED)
-            .build();
+    return dbItem.toBuilder().status(ItemStatus.DELETED).build();
   }
 }
