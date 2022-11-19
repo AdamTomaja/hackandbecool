@@ -53,4 +53,8 @@ public class ItemsService {
 
     return itemRepository.save(itemById.build());
   }
+
+  public DbItem getItem(String id) {
+    return itemRepository.findById(id).orElseThrow();
+  }
 }
