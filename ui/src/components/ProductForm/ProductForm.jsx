@@ -58,7 +58,7 @@ const ProductForm = () => {
 return (
         <>
         <div className='items-center justify-center'>
-            {!add ? <button className="btn-accent max-h-10 min-w-50 py-1 px-2 mx-1 rounded my-1 border border-black" onClick={() => {setAdd(!add)}}>{add ? "Zamknij" : "Dodaj produkt"}</button> : <></>}
+            <button className="btn-accent max-h-10 min-w-50 py-1 px-2 mx-1 rounded my-1 border border-black" onClick={() => {setAdd(!add)}}>{add ? "Zamknij" : "Dodaj produkt"}</button>
         </div>
             {add ? 
             <>
