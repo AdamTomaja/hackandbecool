@@ -6,6 +6,7 @@ import com.busyteam.hackbackend.notifications.repository.NotificationState;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,13 @@ public class NotificationsService {
         .message(message)
         .itemId(itemId)
         .build();
+  }
+
+  public DbNotification updateNotificationById(String id, DbNotification notification) {
+    DbNotification.DbNotificationBuilder notificationById =
+        notificationRepository.findById(id).orElseThrow().toBuilder();
+    Optional.ofNullable(notification.getState()).ifPresent(notificationById::state);
+
+    return notificationRepository.save(notificationById.build());
   }
 }
