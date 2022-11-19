@@ -7,4 +7,6 @@ public interface NotificationRepository extends MongoRepository<DbNotification, 
   int countAllByItemId(String itemId);
 
   List<DbNotification> findAllByItemId(String itemId);
+
+  List<DbNotification> findAllByStateIn(List<NotificationState> states);
 }

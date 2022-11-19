@@ -4,6 +4,8 @@ import com.busyteam.hackbackend.notifications.repository.DbNotification;
 import com.busyteam.hackbackend.notifications.repository.NotificationRepository;
 import com.busyteam.hackbackend.notifications.repository.NotificationState;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,11 @@ public class NotificationsService {
     log.info("Creating new notification: {}", notification);
     notificationRepository.save(notification);
     log.info("Notification saved");
+  }
+
+  public List<DbNotification> listNotifications() {
+    return notificationRepository.findAllByStateIn(
+        Arrays.asList(NotificationState.NEW, NotificationState.READ));
   }
 
   private DbNotification createNotification(String itemId, String message) {
