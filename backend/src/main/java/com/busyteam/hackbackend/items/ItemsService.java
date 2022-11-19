@@ -6,6 +6,8 @@ import com.busyteam.hackbackend.items.repository.ItemStatus;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -44,15 +46,11 @@ public class ItemsService {
     return dbItem.toBuilder().status(ItemStatus.DELETED).build();
   }
 
-  public DbItem changeItemStatusById(String id, ItemStatus status) {
-    return itemRepository
-        .findById(id)
-        .map((item) -> changeStatus(item, status))
-        .map(itemRepository::save)
-        .orElseThrow();
-  }
+  public DbItem updateItemById(String id, DbItem item) {
+    DbItem.DbItemBuilder itemById = itemRepository.findById(id).orElseThrow().toBuilder();
+    Optional.ofNullable(item.getStatus()).ifPresent(itemById::status);
+    Optional.ofNullable(item.getExpirationDate()).ifPresent(itemById::expirationDate);
 
-  private DbItem changeStatus(DbItem dbItem, ItemStatus newStatus) {
-    return dbItem.toBuilder().status(newStatus).build();
+    return itemRepository.save(itemById.build());
   }
 }
