@@ -32,10 +32,9 @@ public class ItemsController {
     return itemsService.deleteItem(id);
   }
 
-  @PutMapping("/items/{id}/status")
-  public DbItem changeItemStatusById(
-      @PathVariable("id") String id, @RequestBody ItemStatus status) {
-    log.info("Change item status by id: {}, {}", id, status);
-    return itemsService.changeItemStatusById(id, status);
+  @PutMapping(value = "/items/{id}/status")
+  public DbItem changeItemStatusById(@PathVariable("id") String id, @RequestBody DbItem item) {
+    log.info("Change item status by id: {}, {}", id, item.getStatus());
+    return itemsService.changeItemStatusById(id, item.getStatus());
   }
 }
