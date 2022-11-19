@@ -8,10 +8,9 @@ import java.time.LocalDateTime;
 import java.util.Random;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
-//@Component
+// @Component
 public class Migration {
 
   private final ItemRepository itemRepository;
