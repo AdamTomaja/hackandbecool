@@ -10,7 +10,7 @@ export async function getProducts() {
             {}
          ).then((response) => {
             getProductsPromise.succeded = true;
-            getProductsPromise.data = response.data.data;
+            getProductsPromise.data = response.data;
             getProductsPromise.requestStatus = response.status;
          }).catch((error) => {
             getProductsPromise.succeded = false;
@@ -20,26 +20,25 @@ export async function getProducts() {
          return new Promise(resolve => resolve(getProductsPromise));
 };
 
-export async function postProduct() {
+export async function postProduct(data) {
    let postProductsPromise = {succeded: false};
 
        await getAPIClient().request(
            "POST",
            "items",
            {
-            // name: data.name,
-            // date: data.date
+            data: data
            },
            {}
         ).then((response) => {
            postProductsPromise.succeded = true;
-           postProductsPromise.data = response.data.data;
+           postProductsPromise.data = response.data
            postProductsPromise.requestStatus = response.status;
         }).catch((error) => {
            postProductsPromise.succeded = false;
            console.log(error);
         });
 
-        return new Promise<postProductsPromise>(resolve => resolve(postProductsPromise));
+        return new Promise(resolve => resolve(postProductsPromise));
 };
 

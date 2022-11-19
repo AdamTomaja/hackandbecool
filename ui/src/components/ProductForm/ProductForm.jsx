@@ -1,18 +1,31 @@
 import {useState, useEffect} from 'react';
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { postProduct } from '../../services/ProductServices';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const ProductForm = () => {
-    const { register, handleSubmit, setValue ,formState: errors } = useForm();
+    const [startDate, setStartDate] = useState(new Date());
+
+    const { register, handleSubmit, setValue, formState: errors } = useForm();
+
+    let today = new Date();
+    console.log(today);
+    
+    const notBefore = today.setDate(today.getDate() + -1) >= startDate;
+
     const onSubmit = data => {  
+        data.date = startDate;
         postProduct(data).then((promise) => {
-                if(promise.requestStatus == 201) {
+                if(promise.requestStatus === 200) {
+                    console.log(data);
                     setToastVisibility(true);
                     setToastStatus(true);
                     return;
                 } else {
+                    console.log(data);
                     setToastVisibility(true);
                     setToastStatus(false);
                 };
@@ -20,27 +33,8 @@ const ProductForm = () => {
     };
 
     const [add, setAdd] = useState(false);
-
-    const [familiesData , setFamiliesData] = useState();
     const [toastVisibility, setToastVisibility] = useState(true);
     const [toastStatus, setToastStatus] = useState(false);
-    const [famillyStatus, setFamillyStatus] = useState(false);
-
-    
-    useEffect(() => {
-        // getFamillies().then((promise) => {
-        //     if(promise.succeded && promise.requestStatus !== 200) {
-        //         setFamillyStatus(true);
-        //         return;
-        //     } else if(promise.succeded && promise.requestStatus === 200)  {
- 
-        //         setFamiliesData(promise.data);
-        //     } 
-        // })
-        // return () => {
-        //     setToastVisibility(false);
-        // };
-    }, []);
 
     const notify = () => {
         if(toastVisibility && toastStatus) {
@@ -54,6 +48,7 @@ const ProductForm = () => {
         } 
     };
 
+        const control = "dupa";
 
 return (
         <>
@@ -68,19 +63,32 @@ return (
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                     <input type="text" placeholder="Wpisz produkt" className="input input-bordered w-full max-w-xs py-2" 
-                    {...register("code", {required: "To pole jest wymagane.", minLength: {value: 3, message: "Minimalna długość to 3"}})}/>
-                    <p className='pt-1'>{errors.code?.message} </p> 
+                    {...register("name", {required: "To pole jest wymagane.", minLength: {value: 3, message: "Minimalna długość to 3"}})}/>
+                    <p className='pt-1'>{errors.name?.message} </p> 
 
-                    <input type="text" placeholder="Wpisz datę ważności" className="input input-bordered w-full max-w-xs py-2"  
-                    {...register("labels.0.value" ,  {required: "To pole jest wymagane.", minLength: {value: 3, message: "Minimalna długość to 3"}})} />
-                    <p className='pt-1'>{errors.labels?.[0]?.value?.message}</p>
+                    <label className="label" >
+                        <span className="label-text pt-1">Wybierz datę ważności</span>
+                        <span className="label-text-alt">
+                        </span>
+                    </label>
+                    {/* <Controller
+                    control={control}
+                    render={({ onChange, value }) => (
+                        <DatePicker
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date)}
+                        />
+                    )}
+                    /> */}
+                    <DatePicker className="z-1 input-bordered" selected={startDate} onChange={(date) => setStartDate(date)} />
+                    <p className='justify-start pt-1'>{notBefore ? "Data nie może być w przeszłości" : ""}</p>
 
                     <div className="card-actions justify-end">
                         <button className="btn btn-primary -py-2" 
-                        type="submit" onClick={() => {
-                            setValue('labels.0.code', "pl_PL");
-                            notify();             
-                            }}>{"Dodaj"}</button>
+                        type="submit" disabled={notBefore} onClick={() => {
+                            setValue("status", "NEED_TO_BUY");
+                                notify();              
+                            }}>Dodaj</button>
                     </div> 
                 </form>
                 <ToastContainer />

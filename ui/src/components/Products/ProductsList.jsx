@@ -5,7 +5,6 @@ import { getProducts } from '../../services/ProductServices';
 export const ProductsList = () => {
 
     const [productsData , setProductsData] = useState();
-    const [toastVisibility, setToastVisibility] = useState(true);
     const [inputText, setInputText] = useState("");
 
     let inputHandler = (e) => {
@@ -14,25 +13,23 @@ export const ProductsList = () => {
       };
 
       const filteredData = productsData?.filter((el) => {
-        if (el?.code === '') {
+        if (el?.name === '') {
             return el;
         }
         else {
-            return el?.code?.toLowerCase().includes(inputText);
+            return el?.name?.toLowerCase().includes(inputText);
         };
     });
 
     useEffect(() => {
         getProducts().then((promise) => {
             if(promise.succeded && promise.requestStatus !== 200) {
+                console.log("dupa");
                 return;
             }  else if(promise.succeded && promise.requestStatus === 200)  {
                 setProductsData(promise.data);
             } 
         })
-        return () => {
-            setToastVisibility(true);
-        }
     }, [])
     const expirationDate = 7;
 
