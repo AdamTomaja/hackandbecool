@@ -25,7 +25,7 @@ export async function postProduct() {
 
        await getAPIClient().request(
            "POST",
-           "families?noPagination=true",
+           "items",
            {
             // name: data.name,
             // date: data.date
