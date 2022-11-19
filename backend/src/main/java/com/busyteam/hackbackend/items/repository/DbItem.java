@@ -1,25 +1,26 @@
 package com.busyteam.hackbackend.items.repository;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
-
 @Document
 @NoArgsConstructor
-@Builder
+@Builder(toBuilder = true)
 @AllArgsConstructor
 @Getter
+@ToString
 public class DbItem {
 
-    @Id
-    private String id;
+  @Id private String id;
 
-    private String name;
+  private String name;
 
-    private LocalDateTime expirationDate;
+  private LocalDateTime expirationDate;
+  private LocalDateTime created;
+
+  private ItemStatus status;
+
+  private ItemCategory category;
 }

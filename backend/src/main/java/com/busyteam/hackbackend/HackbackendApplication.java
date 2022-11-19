@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class HackbackendApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(HackbackendApplication.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(HackbackendApplication.class, args);
+  }
 }

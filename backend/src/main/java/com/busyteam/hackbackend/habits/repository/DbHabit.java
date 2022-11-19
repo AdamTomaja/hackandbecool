@@ -12,9 +12,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder
 public class DbHabit {
 
-    @Id
-    private String id;
+  @Id private String id;
 
-    private String title;
-    private String description;
+  private String title;
+  private String description;
 }
