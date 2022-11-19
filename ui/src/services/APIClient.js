@@ -7,7 +7,7 @@ export class APIClient {
         this.baseUrl = "http://localhost:8080/"
     }
 
-     async request(method: Method, url  , data , headers ) {
+     async request(method,  url  , data , headers ) {
 
         const authHeader = await APIClient.getAuthHeader();
 
@@ -21,20 +21,7 @@ export class APIClient {
 
     static async getAuthHeader()
     {
-        return {Authorization: 'Bearer ' + window.localStorage.getItem('token')};
-    }
-
-    parseViolations(data)
-    {
-        let violations = [];
-
-        if (data.violations) {
-            for(let violationData of data.violations) {
-                violations.push(violationData);
-            }
-        }
-
-        return violations;
+        return { Authorization: 'Access-Control-Allow-Origin' };
     }
 };
 

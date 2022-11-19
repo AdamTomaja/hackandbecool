@@ -1,9 +1,8 @@
 import {useState, useEffect} from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import { getAttributes, IproductsData } from '../../services/AttributesServices';
 import { getProducts } from '../../services/ProductServices';
 
-export const AttributesView = () => {
+export const ProductsList = () => {
 
     const [productsData , setProductsData] = useState();
     const [toastVisibility, setToastVisibility] = useState(true);
@@ -63,11 +62,9 @@ export const AttributesView = () => {
       return (
     <tr className="hover" key={el?.id}>
         <td>  
-          <div>
               <div className="font-bold">{el?.name}</div>
-              <div className="text-xs opacity-50">{el?.expirationDate}</div>
-          </div>
         </td> 
+        <td><div className="text-xs opacity-50">{el?.expirationDate}</div></td>
       <td>{expirationDateDot}</td>
     </tr>
       )
@@ -80,4 +77,4 @@ export const AttributesView = () => {
     )
 };
 
-export default AttributesView;
+export default ProductsList;
