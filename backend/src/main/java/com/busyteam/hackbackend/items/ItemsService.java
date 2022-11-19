@@ -1,5 +1,7 @@
 package com.busyteam.hackbackend.items;
 
+import com.busyteam.hackbackend.items.repository.DbItem;
+import com.busyteam.hackbackend.items.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.busyteam.hackbackend.items;
+package com.busyteam.hackbackend.items.repository;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
