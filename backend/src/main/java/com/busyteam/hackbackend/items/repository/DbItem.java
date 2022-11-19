@@ -3,6 +3,7 @@ package com.busyteam.hackbackend.items.repository;
 import java.time.LocalDateTime;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -23,4 +24,6 @@ public class DbItem {
   private ItemStatus status;
 
   private ItemCategory category;
+
+  @Transient private Long expirationDays;
 }

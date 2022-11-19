@@ -4,12 +4,14 @@ import com.busyteam.hackbackend.items.repository.DbItem;
 import com.busyteam.hackbackend.items.repository.ItemCategory;
 import com.busyteam.hackbackend.items.repository.ItemRepository;
 import com.busyteam.hackbackend.items.repository.ItemStatus;
+import java.time.LocalDateTime;
 import java.util.Random;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
-// @Component
+@Component
 public class Migration {
 
   private final ItemRepository itemRepository;
@@ -23,7 +25,10 @@ public class Migration {
   }
 
   private DbItem asssignCategory(DbItem dbItem) {
-    return dbItem.toBuilder().category(ItemCategory.FOOD).build();
+    return dbItem.toBuilder()
+        .category(ItemCategory.FOOD)
+        .created(LocalDateTime.now().minusDays(new Random().nextInt(30)))
+        .build();
   }
 
   private DbItem assignState(DbItem dbItem) {
