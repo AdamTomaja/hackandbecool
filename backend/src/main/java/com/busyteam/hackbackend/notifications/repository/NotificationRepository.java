@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface NotificationRepository extends MongoRepository<DbNotification, String> {
-  int countAllByItemId(String itemId);
+  int countAllByItemIdAndStateIsNot(String itemId, NotificationState state);
 
   List<DbNotification> findAllByItemId(String itemId);
 

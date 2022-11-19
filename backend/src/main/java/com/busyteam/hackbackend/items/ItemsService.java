@@ -3,6 +3,7 @@ package com.busyteam.hackbackend.items;
 import com.busyteam.hackbackend.items.repository.DbItem;
 import com.busyteam.hackbackend.items.repository.ItemRepository;
 import com.busyteam.hackbackend.items.repository.ItemStatus;
+import com.busyteam.hackbackend.notifications.NotificationsService;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 public class ItemsService {
 
   private final ItemRepository itemRepository;
+  private final NotificationsService notificationsService;
 
   public DbItem createNewItem(DbItem item) {
     log.info("Adding new item: {}", item);
@@ -45,12 +47,24 @@ public class ItemsService {
     return dbItem.toBuilder().status(ItemStatus.DELETED).build();
   }
 
-  public DbItem updateItemById(String id, DbItem item) {
-    DbItem.DbItemBuilder itemById = itemRepository.findById(id).orElseThrow().toBuilder();
-    Optional.ofNullable(item.getStatus()).ifPresent(itemById::status);
+  public DbItem updateItemById(String itemId, DbItem item) {
+    DbItem.DbItemBuilder itemById = itemRepository.findById(itemId).orElseThrow().toBuilder();
+
+    Optional.ofNullable(item.getStatus())
+        .map(s -> handleNotifications(itemId, s))
+        .ifPresent(itemById::status);
+
     Optional.ofNullable(item.getExpirationDate()).ifPresent(itemById::expirationDate);
 
     return itemRepository.save(itemById.build());
+  }
+
+  private ItemStatus handleNotifications(String itemId, ItemStatus status) {
+    if (status == ItemStatus.IN_STOCK) {
+      notificationsService.deleteNotificationsForId(itemId);
+    }
+
+    return status;
   }
 
   public DbItem getItem(String id) {

@@ -18,7 +18,8 @@ public class NotificationsService {
   private final NotificationRepository notificationRepository;
 
   public boolean isNotified(String itemId) {
-    return notificationRepository.countAllByItemId(itemId) > 0;
+    return notificationRepository.countAllByItemIdAndStateIsNot(itemId, NotificationState.DELETED)
+        > 0;
   }
 
   public void deleteNotificationsForId(String itemId) {
