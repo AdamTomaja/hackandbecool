@@ -1,10 +1,10 @@
 package com.busyteam.hackbackend.notifications.repository;
 
+import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import java.util.List;
-
 public interface NotificationRepository extends MongoRepository<DbNotification, String> {
-    int countAllByItemId(String itemId);
-    List<DbNotification> findAllByItemId(String itemId);
+  int countAllByItemId(String itemId);
+
+  List<DbNotification> findAllByItemId(String itemId);
 }
