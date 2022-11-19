@@ -25,4 +25,10 @@ public class ItemsController {
     log.info("Listing all items");
     return itemsService.getAllItems(status);
   }
+
+  @DeleteMapping("/items/{id}")
+  public DbItem deleteItem(@PathVariable("id") String id) {
+    log.info("Delete item by id");
+    return itemsService.deleteItem(id);
+  }
 }

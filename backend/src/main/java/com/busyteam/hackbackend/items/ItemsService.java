@@ -31,4 +31,14 @@ public class ItemsService {
         .expirationDays(Duration.between(LocalDateTime.now(), dbItem.getExpirationDate()).toDays())
         .build();
   }
+
+    public DbItem deleteItem(String id) {
+      return itemRepository.findById(id).map(this::markAsDeleted).map(itemRepository::save).orElseThrow();
+    }
+
+  private DbItem markAsDeleted(DbItem dbItem) {
+    return dbItem.toBuilder()
+            .status(ItemStatus.DELETED)
+            .build();
+  }
 }
