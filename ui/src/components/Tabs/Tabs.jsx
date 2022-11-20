@@ -6,6 +6,7 @@ import ProductForm from '../ProductForm/ProductForm';
 import ProductsList from '../Products/ProductsList';
 import ProductsDataNeedToBuy from './ProductsNeedToBuy';
 import ProductsOutOfStock from './ProductsOutOfStock';
+import HabitsList from "../Habits/HabitsList";
 
 const AllTabsContainer = () => {
 
@@ -40,17 +41,7 @@ const AllTabsContainer = () => {
           <ProductsOutOfStock />
         </TabPanel>
         <TabPanel>
-          <p>
-            <b>Yoshi</b> (<i>ヨッシー Yosshī, [joɕ.ɕiː]</i>) (<i>English: /ˈjoʊʃi/ or /ˈjɒʃi/</i>), once
-            romanized as Yossy, is a fictional anthropomorphic dinosaur who appears in
-            video games published by Nintendo. Yoshi debuted in Super Mario World (1990) on the
-            Super Nintendo Entertainment System as Mario and Luigi's sidekick. Yoshi later starred
-            in platform and puzzle games, including Super Mario World 2: Yoshi's Island, Yoshi's Story
-            and Yoshi's Woolly World. Yoshi also appears in many of the Mario spin-off games, including
-            Mario Party and Mario Kart, various Mario sports games, and Nintendo's crossover fighting
-            game series Super Smash Bros. Yoshi belongs to the species of the same name, which is
-            characterized by their variety of colors.
-          </p>
+          <HabitsList />
         </TabPanel>
       </Tabs>
     )

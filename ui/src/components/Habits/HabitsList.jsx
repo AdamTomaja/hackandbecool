@@ -45,7 +45,13 @@ export const HabitsList = () => {
     <thead>
       <tr>
           <td><h1>Here's some good to follow rules to reduce wasting</h1></td>
-          <td><button className="btn-accent max-h-10 min-w-50 py-1 px-2 mx-1 rounded my-1 border border-black" onClick={() => {}}>"Add rule"</button></td>
+          <td>
+              <button
+                  className="btn-accent max-h-10 min-w-50 py-1 px-2 mx-1 rounded my-1 border border-black"
+                  onClick={() => {}}>
+                  Add rule
+              </button>
+          </td>
       </tr>
     </thead>
     <tbody>
@@ -57,8 +63,8 @@ export const HabitsList = () => {
             <div className="font-bold flex justify-start items-center">
                 {el?.title}
             </div>
-            <div className="font-bold flex justify-start items-center">
-                {el?.title}
+            <div className="flex justify-start items-center">
+                {el?.description}
             </div>
         </td>
     </tr>
