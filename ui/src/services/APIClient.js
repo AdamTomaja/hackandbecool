@@ -4,7 +4,7 @@ export class APIClient {
     baseUrl;
 
     constructor() {
-        this.baseUrl = "http://localhost:8080/"
+        this.baseUrl = "http://192.168.50.200:4470/"
     }
 
      async request(method,  url  , data , headers ) {

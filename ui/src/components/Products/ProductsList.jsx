@@ -1,10 +1,10 @@
 import {useState, useEffect} from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import { getProducts } from '../../services/ProductServices';
+import { getProductsInStock } from '../../services/ProductServices';
 
 export const ProductsList = () => {
 
-    const [productsData , setProductsData] = useState();
+    const [productsDataInStock , setProductsDataInStock] = useState();
     const [inputText, setInputText] = useState("");
 
     let inputHandler = (e) => {
@@ -12,7 +12,7 @@ export const ProductsList = () => {
         setInputText(lowerCaseText);
       };
 
-      const filteredData = productsData?.filter((el) => {
+      const filteredData = productsDataInStock?.filter((el) => {
         if (el?.name === '') {
             return el;
         }
@@ -22,20 +22,14 @@ export const ProductsList = () => {
     });
 
     useEffect(() => {
-        getProducts().then((promise) => {
+      getProductsInStock().then((promise) => {
             if(promise.succeded && promise.requestStatus !== 200) {
-                console.log("dupa");
                 return;
             }  else if(promise.succeded && promise.requestStatus === 200)  {
-                setProductsData(promise.data);
+              setProductsDataInStock(promise.data);
             } 
         })
     }, [])
-    const expirationDate = 7;
-
-    const expirationDateDot = expirationDate >= 7 ? <div className='text-green-700 text-xl text-center'> · </div> 
-    :  expirationDate >= 3 ? 
-    <div className='text-yellow-700 text-xl text-center'> · </div> : <div className='text-red-700 text-xl text-center'> · </div>
 
     return (
 <div>
@@ -49,8 +43,8 @@ export const ProductsList = () => {
   <table className="table w-full">
     <thead>
       <tr>
-        <th>Nazwa</th>
-        <th>Data ważności</th>
+        <th>Name</th>
+        <th>Expiration date</th>
       </tr>
     </thead>
     <tbody>
@@ -58,11 +52,19 @@ export const ProductsList = () => {
     filteredData?.map((el , index ) => {
       return (
     <tr className="hover" key={el?.id}>
-        <td>  
-              <div className="font-bold">{el?.name}</div>
+        <td className=''>  
+            <div className="font-bold flex justify-start items-center">
+                {el?.name} 
+                <div className='pb-2 ml-1'>
+                {el?.expirationDate >= 7 ? <div className='text-green-700 text-6xl'> · </div>   :
+                el?.expirationDate >= 3 ?  
+                <div className='text-yellow-700 text-6xl'> · </div> : 
+                <div className='text-red-700 text-6xl'> · </div>}
+                </div> 
+
+            </div>         
         </td> 
-        <td><div className="text-xs opacity-50">{el?.expirationDate}</div></td>
-      <td>{expirationDateDot}</td>
+        <td><div className="text-xs opacity-70">{el?.expirationDate}</div></td>
     </tr>
       )
 })

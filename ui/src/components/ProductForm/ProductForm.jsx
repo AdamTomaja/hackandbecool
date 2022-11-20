@@ -12,12 +12,12 @@ const ProductForm = () => {
     const { register, handleSubmit, setValue, formState: errors } = useForm();
 
     let today = new Date();
-    console.log(today);
     
     const notBefore = today.setDate(today.getDate() + -1) >= startDate;
 
     const onSubmit = data => {  
         data.date = startDate;
+        data.status = "NEED_TO_BUY";
         postProduct(data).then((promise) => {
                 if(promise.requestStatus === 200) {
                     console.log(data);
@@ -59,36 +59,27 @@ return (
             <>
              <div className="card w-96 bg-base-100 shadow-xl border border-black items-center justify-center">
                 <div className="card-body">
-                    <h2 className="card-title -pt-2">{"Dodawanie produktu"}</h2>
+                    <h2 className="card-title -pt-2">Adding product</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
 
-                    <input type="text" placeholder="Wpisz produkt" className="input input-bordered w-full max-w-xs py-2" 
-                    {...register("name", {required: "To pole jest wymagane.", minLength: {value: 3, message: "Minimalna długość to 3"}})}/>
+                    <input type="text" placeholder="Enter the product" className="input input-bordered w-full max-w-xs py-2" 
+                    {...register("name", {required: "This field is required", minLength: {value: 3, message: "Minimal length is 3"}})}/>
                     <p className='pt-1'>{errors.name?.message} </p> 
 
                     <label className="label" >
-                        <span className="label-text pt-1">Wybierz datę ważności</span>
+                        <span className="label-text pt-1">Choose expiration date</span>
                         <span className="label-text-alt">
                         </span>
                     </label>
-                    {/* <Controller
-                    control={control}
-                    render={({ onChange, value }) => (
-                        <DatePicker
-                        selected={startDate}
-                        onChange={(date) => setStartDate(date)}
-                        />
-                    )}
-                    /> */}
                     <DatePicker className="z-1 input-bordered" selected={startDate} onChange={(date) => setStartDate(date)} />
-                    <p className='justify-start pt-1'>{notBefore ? "Data nie może być w przeszłości" : ""}</p>
+                    <p className='justify-start pt-1'>{notBefore ? "Date can't be in future" : ""}</p>
 
                     <div className="card-actions justify-end">
                         <button className="btn btn-primary -py-2" 
                         type="submit" disabled={notBefore} onClick={() => {
                             setValue("status", "NEED_TO_BUY");
                                 notify();              
-                            }}>Dodaj</button>
+                            }}>Add</button>
                     </div> 
                 </form>
                 <ToastContainer />

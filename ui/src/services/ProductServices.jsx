@@ -1,6 +1,6 @@
 import getAPIClient from "./APIClient";
 
-export async function getProducts() {
+export async function getProductsInStock() {
     let getProductsPromise = {succeded: false};
 
         await getAPIClient().request(
@@ -20,6 +20,46 @@ export async function getProducts() {
          return new Promise(resolve => resolve(getProductsPromise));
 };
 
+export async function getProductsNeedToBuy() {
+   let getProductsPromise = {succeded: false};
+
+       await getAPIClient().request(
+           "GET",
+           "items/NEED_TO_BUY",
+           {},
+           {}
+        ).then((response) => {
+           getProductsPromise.succeded = true;
+           getProductsPromise.data = response.data;
+           getProductsPromise.requestStatus = response.status;
+        }).catch((error) => {
+           getProductsPromise.succeded = false;
+           console.log(error);
+        });
+
+        return new Promise(resolve => resolve(getProductsPromise));
+};
+
+export async function getProductsOutOfStock() {
+   let getProductsPromise = {succeded: false};
+
+       await getAPIClient().request(
+           "GET",
+           "items/OUT_OF_STOCK",
+           {},
+           {}
+        ).then((response) => {
+           getProductsPromise.succeded = true;
+           getProductsPromise.data = response.data;
+           getProductsPromise.requestStatus = response.status;
+        }).catch((error) => {
+           getProductsPromise.succeded = false;
+           console.log(error);
+        });
+
+        return new Promise(resolve => resolve(getProductsPromise));
+};
+
 export async function postProduct(data) {
    let postProductsPromise = {succeded: false};
 
@@ -27,7 +67,9 @@ export async function postProduct(data) {
            "POST",
            "items",
            {
-            data: data
+             name: data.name,
+             expirationDate: data.date,
+             status: data.status
            },
            {}
         ).then((response) => {

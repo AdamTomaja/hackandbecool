@@ -13,6 +13,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.39.4",
     "react-scripts": "5.0.1",
+    "react-tabs": "^5.1.0",
     "react-toastify": "^9.1.1",
     "web-vitals": "^2.1.4"
   },
