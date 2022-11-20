@@ -12,6 +12,10 @@ const ProductAddForm = () => {
     const { register, handleSubmit, setValue, formState: errors } = useForm();
 
     let today = new Date();
+
+    const [add, setAdd] = useState(false);
+    const [toastVisibility, setToastVisibility] = useState(true);
+    const [toastStatus, setToastStatus] = useState(false);
     
     const notBefore = today.setDate(today.getDate() + -1) >= startDate;
 
@@ -21,19 +25,15 @@ const ProductAddForm = () => {
         postProduct(data).then((promise) => {
             setToastVisibility(true);
                 if(promise.requestStatus === 200) {
-                    setToastStatus(true);
+                    notify(true);
                     return;
                 } else {
-                    setToastStatus(false);
+                    notify(false);
                 };
             })
     };
 
-    const [add, setAdd] = useState(false);
-    const [toastVisibility, setToastVisibility] = useState(true);
-    const [toastStatus, setToastStatus] = useState(false);
-
-    const notify = () => {
+    const notify = (toastStatus) => {
         if(toastVisibility && toastStatus) {
             toast.success("Dodano poprawnie!", {
             position: toast.POSITION.BOTTOM_RIGHT
@@ -72,8 +72,7 @@ return (
                     <div className="card-actions justify-end">
                         <button className="btn btn-primary -py-2" 
                         type="submit" disabled={notBefore} onClick={() => {
-                            setValue("status", "IN_STOCK");
-                                notify();              
+                            setValue("status", "IN_STOCK");          
                             }}>Add</button>
                     </div> 
                 </form>

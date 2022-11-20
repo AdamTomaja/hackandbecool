@@ -87,8 +87,6 @@ export async function postProduct(data) {
 export async function postProductToInStock(id) {
    let postProductToInStockPromise = {succeded: false};
 
-   console.log(id);
-
        await getAPIClient().request(
            "POST",
            `items/${id}`,
