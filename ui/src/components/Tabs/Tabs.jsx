@@ -1,14 +1,22 @@
 import { useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import ProductAddForm from '../ProductForm/ProductAddForm';
 import ProductForm from '../ProductForm/ProductForm';
 import ProductsList from '../Products/ProductsList';
 import ProductsDataNeedToBuy from './ProductsNeedToBuy';
 import ProductsOutOfStock from './ProductsOutOfStock';
 
-const AllTabs = () => {
+const AllTabsContainer = () => {
 
   const [tabIndex, setTabIndex] = useState(0);
+
+  let currentTab = tabIndex;
+  if(currentTab === 0) {
+
+  } else if(currentTab === 1) {
+    
+  }
 
     return (
         <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
@@ -19,16 +27,17 @@ const AllTabs = () => {
           <Tab>Zero-waste habits</Tab>
         </TabList>
     
-        <TabPanel>
-            <ProductsList />
+        <TabPanel className="flex items-center justify-center" >
+          <ProductForm />
+          <ProductsDataNeedToBuy />
         </TabPanel>
 
-        <TabPanel>
-            <ProductForm />
-            <ProductsOutOfStock />
+        <TabPanel className="flex items-center justify-center" >
+            <ProductAddForm />
+            <ProductsList />
         </TabPanel>
         <TabPanel>
-          <ProductsDataNeedToBuy />
+          <ProductsOutOfStock />
         </TabPanel>
         <TabPanel>
           <p>
@@ -47,4 +56,4 @@ const AllTabs = () => {
     )
 };
 
-export default AllTabs;
+export default AllTabsContainer;
