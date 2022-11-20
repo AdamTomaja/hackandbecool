@@ -1,8 +1,8 @@
 import {useState, useEffect} from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import { getProductsInStock } from '../../services/ProductServices';
+import { getProductsOutOfStock } from '../../services/ProductServices';
 
-export const ProductsList = () => {
+export const ProductsOutOfStock = () => {
 
     const [productsDataInStock , setProductsDataInStock] = useState();
     const [inputText, setInputText] = useState("");
@@ -22,14 +22,14 @@ export const ProductsList = () => {
     });
 
     useEffect(() => {
-      getProductsInStock().then((promise) => {
-            if(promise.succeded && promise.requestStatus !== 200) {
-                return;
-            }  else if(promise.succeded && promise.requestStatus === 200)  {
-              setProductsDataInStock(promise.data);
-            } 
-        })
-    }, [productsDataInStock])
+        getProductsOutOfStock().then((promise) => {
+              if(promise.succeded && promise.requestStatus !== 200) {
+                  return;
+              }  else if(promise.succeded && promise.requestStatus === 200)  {
+                setProductsDataInStock(promise.data);
+              } 
+          })
+      }, [productsDataInStock])
 
     return (
 <div>
@@ -76,4 +76,4 @@ export const ProductsList = () => {
     )
 };
 
-export default ProductsList;
+export default ProductsOutOfStock;

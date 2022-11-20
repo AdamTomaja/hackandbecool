@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -6,7 +6,7 @@ import { postProduct } from '../../services/ProductServices';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const ProductForm = () => {
+const ProductAddForm = () => {
     const [startDate, setStartDate] = useState(new Date());
 
     const { register, handleSubmit, setValue, formState: errors } = useForm();
@@ -17,7 +17,7 @@ const ProductForm = () => {
 
     const onSubmit = data => {  
         data.date = startDate;
-        data.status = "NEED_TO_BUY";
+        data.status = "IN_STOCK";
         postProduct(data).then((promise) => {
             setToastVisibility(true);
                 if(promise.requestStatus === 200) {
@@ -72,7 +72,7 @@ return (
                     <div className="card-actions justify-end">
                         <button className="btn btn-primary -py-2" 
                         type="submit" disabled={notBefore} onClick={() => {
-                            setValue("status", "NEED_TO_BUY");
+                            setValue("status", "IN_STOCK");
                                 notify();              
                             }}>Add</button>
                     </div> 
@@ -89,4 +89,4 @@ return (
 };
 
 
-export default ProductForm;
+export default ProductAddForm;

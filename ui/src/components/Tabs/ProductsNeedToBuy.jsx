@@ -1,10 +1,10 @@
 import {useState, useEffect} from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import { getProductsInStock } from '../../services/ProductServices';
+import { getProductsNeedToBuy } from '../../services/ProductServices';
 
-export const ProductsList = () => {
+export const ProductsDataNeedToBuy = () => {
 
-    const [productsDataInStock , setProductsDataInStock] = useState();
+    const [productsDataNeedToBuy , setProductsDataNeedToBuy] = useState();
     const [inputText, setInputText] = useState("");
 
     let inputHandler = (e) => {
@@ -12,7 +12,7 @@ export const ProductsList = () => {
         setInputText(lowerCaseText);
       };
 
-      const filteredData = productsDataInStock?.filter((el) => {
+      const filteredData = productsDataNeedToBuy?.filter((el) => {
         if (el?.name === '') {
             return el;
         }
@@ -22,14 +22,14 @@ export const ProductsList = () => {
     });
 
     useEffect(() => {
-      getProductsInStock().then((promise) => {
-            if(promise.succeded && promise.requestStatus !== 200) {
-                return;
-            }  else if(promise.succeded && promise.requestStatus === 200)  {
-              setProductsDataInStock(promise.data);
-            } 
-        })
-    }, [productsDataInStock])
+        getProductsNeedToBuy().then((promise) => {
+              if(promise.succeded && promise.requestStatus !== 200) {
+                  return;
+              }  else if(promise.succeded && promise.requestStatus === 200)  {
+                setProductsDataNeedToBuy(promise.data);
+              } 
+          })
+      }, [productsDataNeedToBuy])
 
     return (
 <div>
@@ -76,4 +76,4 @@ export const ProductsList = () => {
     )
 };
 
-export default ProductsList;
+export default ProductsDataNeedToBuy;

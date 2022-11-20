@@ -1,13 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
-import ProductForm from './components/ProductForm/ProductForm';
-import ProductsList from './components/Products/ProductsList';
+import AllTabsContainer from './components/Tabs/Tabs';
 
 function App() {
   return (
     <div className="App">
-      <ProductForm />
-      <ProductsList />
+      <AllTabsContainer />
     </div>
   );
 }

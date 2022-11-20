@@ -1,10 +1,10 @@
-import axios, { Method} from "axios";
+import axios from "axios";
 
 export class APIClient {
     baseUrl;
 
     constructor() {
-        this.baseUrl = "http://localhost:8080/"
+        this.baseUrl = process.env.REACT_APP_BASE_URL ;
     }
 
      async request(method,  url  , data , headers ) {
