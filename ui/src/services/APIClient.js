@@ -4,7 +4,7 @@ export class APIClient {
     baseUrl;
 
     constructor() {
-        this.baseUrl = "http://192.168.50.200:4470/"
+        this.baseUrl = process.env.REACT_APP_BASE_URL ;
     }
 
      async request(method,  url  , data , headers ) {
