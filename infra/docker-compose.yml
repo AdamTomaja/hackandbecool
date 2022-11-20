@@ -9,11 +9,19 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     ports:
       - 27017:27017
+  foodie-ui:
+    image: vault:5556/foodie-ui:${UI_VERSION}
+    restart: always
+    ports:
+      - 4475:3000
+    depends_on:
+      - foodie-backend
   foodie-backend:
-    image: vault:5556/foodie-backend:1.0.0
+    image: vault:5556/foodie-backend:${BACKEND_VERSION}
     restart: always
     environment:
       - SPRING_DATA_MONGODB_HOST=mongo
+      - FOODIE_UI_HOST=https://foodieapp.duckdns.org
     ports:
       - 4470:8080
     depends_on:
