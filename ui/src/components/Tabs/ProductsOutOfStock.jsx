@@ -35,7 +35,7 @@ export const ProductsOutOfStock = () => {
 <div>
   <div className="form-control py-2">
     <div className="input-group">
-      <input type="text" placeholder="Szukaj…" className="input input-bordered" onChange={inputHandler} />
+      <input type="text" placeholder="Search…" className="input input-bordered" onChange={inputHandler} />
   </div>
 </div>
         
