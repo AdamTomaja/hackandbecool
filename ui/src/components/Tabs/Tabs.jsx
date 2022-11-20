@@ -20,7 +20,7 @@ const AllTabsContainer = () => {
 
     return (
         <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
-        <TabList>
+        <TabList className="flex items-center justify-center border-2 border-t-0 border-solid border-black">
           <Tab>Shopping List</Tab>
           <Tab>My Food</Tab>
           <Tab>Historical</Tab>

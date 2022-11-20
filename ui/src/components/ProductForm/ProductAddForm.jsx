@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import { SubmitHandler, useForm, Controller } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { postProduct } from '../../services/ProductServices';
