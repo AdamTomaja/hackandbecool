@@ -29,7 +29,7 @@ export const ProductsList = () => {
               setProductsDataInStock(promise.data);
             } 
         })
-    }, [productsDataInStock])
+    }, [])
 
     return (
 <div>

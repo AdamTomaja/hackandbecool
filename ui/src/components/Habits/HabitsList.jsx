@@ -30,7 +30,7 @@ export const HabitsList = () => {
               setHabitsList(promise.data);
             } 
         })
-    }, [habitsList])
+    }, [])
 
     return (
 <div>

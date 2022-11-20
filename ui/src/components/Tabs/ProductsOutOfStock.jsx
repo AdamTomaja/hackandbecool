@@ -29,7 +29,7 @@ export const ProductsOutOfStock = () => {
                 setProductsDataInStock(promise.data);
               } 
           })
-      }, [productsDataInStock])
+      }, [])
 
     return (
 <div>

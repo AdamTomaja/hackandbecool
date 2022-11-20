@@ -24,6 +24,7 @@ export const ProductsDataNeedToBuy = () => {
     useEffect(() => {
         getProductsNeedToBuy().then((promise) => {
               if(promise.succeded && promise.requestStatus !== 200) {
+                console.log("dupa")
                   return;
               }  else if(promise.succeded && promise.requestStatus === 200)  {
                 setProductsDataNeedToBuy(promise.data);
