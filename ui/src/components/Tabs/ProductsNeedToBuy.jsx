@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import { getProductsNeedToBuy } from '../../services/ProductServices';
+import { getProductsNeedToBuy, postProductToInStock } from '../../services/ProductServices';
 
 export const ProductsDataNeedToBuy = () => {
 
@@ -30,6 +30,16 @@ export const ProductsDataNeedToBuy = () => {
               } 
           })
       }, [productsDataNeedToBuy])
+
+      const handleBought = (id) => {
+          postProductToInStock(id).then((promise) => {
+                if(promise.succeded && promise.requestStatus !== 200) {
+                    return;
+                }  else if(promise.succeded && promise.requestStatus === 200)  {
+                  setProductsDataNeedToBuy(promise.data);
+                } 
+            })
+      }
 
     return (
 <div>
@@ -65,6 +75,9 @@ export const ProductsDataNeedToBuy = () => {
             </div>         
         </td> 
         <td><div className="text-xs opacity-70">{el?.expirationDate}</div></td>
+        <td>
+        <button className="btn btn-success" onCLick={handleBought(el?.id)}>Bought!</button>
+        </td>
     </tr>
       )
 })
