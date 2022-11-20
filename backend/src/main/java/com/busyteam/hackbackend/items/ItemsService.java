@@ -20,7 +20,15 @@ public class ItemsService {
 
   public DbItem createNewItem(DbItem item) {
     log.info("Adding new item: {}", item);
+    checkForDuplicates(item);
     return itemRepository.save(item.toBuilder().created(LocalDateTime.now()).build());
+  }
+
+  private void checkForDuplicates(DbItem item) {
+    long countAllByName = itemRepository.countAllByName(item.getName());
+    if (countAllByName > 0) {
+      throw new IllegalArgumentException();
+    }
   }
 
   public List<DbItem> getAllItems(ItemStatus status) {
