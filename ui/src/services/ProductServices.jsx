@@ -84,3 +84,28 @@ export async function postProduct(data) {
         return new Promise(resolve => resolve(postProductsPromise));
 };
 
+export async function postProductToInStock(id) {
+   let postProductToInStockPromise = {succeded: false};
+
+   console.log("dudadas")
+
+       await getAPIClient().request(
+           "POST",
+           `items/${id}`,
+           {
+            id: id.id,
+
+           },
+           {}
+        ).then((response) => {
+           postProductToInStockPromise.succeded = true;
+           postProductToInStockPromise.data = response.data
+           postProductToInStockPromise.requestStatus = response.status;
+        }).catch((error) => {
+          postProductToInStockPromise.succeded = false;
+           console.log(error);
+        });
+
+        return new Promise(resolve => resolve(postProductToInStockPromise));
+};
+
